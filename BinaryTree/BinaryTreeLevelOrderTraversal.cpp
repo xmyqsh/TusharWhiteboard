@@ -1,6 +1,7 @@
 // https://www.youtube.com/watch?v=9PHkM0Jri_4
 // https://www.youtube.com/watch?v=7uG0gLDbhsI
 // https://www.youtube.com/watch?v=D2bIbWGgvzI
+// https://www.youtube.com/watch?v=vjt5Y6-1KsQ
 #include "../tools/tools.h"
 #include "../tools/BinaryTree.h"
 
@@ -54,6 +55,28 @@ void ReverseLevelOrderIterative(TreeNode* root) {
     }
 }
 
+void SpiralOrderIterative(TreeNode* root) {
+    stack<TreeNode*> sk1, sk2;
+    if (root) sk2.push(root);
+    while (!sk1.empty() || !sk2.empty()) {
+        if (!sk1.empty()) {
+            while (!sk1.empty()) {
+                root = sk1.top(); sk1.pop();
+                cout << root->val << '\t';
+                if (root->right) sk2.push(root->right);
+                if (root->left) sk2.push(root->left);
+            }
+        } else {
+            while (!sk2.empty()) {
+                root = sk2.top(); sk2.pop();
+                cout << root->val << '\t';
+                if (root->left) sk1.push(root->left);
+                if (root->right) sk1.push(root->right);
+            }
+        }
+    }
+}
+
 int main() {
     BinaryTree* bt = new BinaryTree(10);
     bt->add(-5);
@@ -77,5 +100,10 @@ int main() {
         for (auto elem : *rIterRow) cout << elem << '\t'; cout << endl;
     cout << "ReverseLevelOrderIterative:" << endl;
     ReverseLevelOrderIterative(bt->getRoot()); cout << endl;
+    cout << "SpiralOrderRecur:" << endl;
+    for (int i = 1; i < result.size(); i += 2) reverse(result[i].begin(), result[i].end());
+    for (auto row : result) for (auto elem : row) cout << elem << '\t'; cout << endl;
+    cout << "SpiralOrderIterative:" << endl;
+    SpiralOrderIterative(bt->getRoot()); cout << endl;
     return 0;
 }

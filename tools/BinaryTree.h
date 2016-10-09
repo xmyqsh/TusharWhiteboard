@@ -38,8 +38,7 @@ public:
         inOrderRecur(root);
         cout << endl;
     }
-private:
-    void inOrderRecur(TreeNode* root) {
+    static void inOrderRecur(TreeNode* root) {
         if (!root) return;
         inOrderRecur(root->left);
         cout << root->val << '\t';
